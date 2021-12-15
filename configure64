@@ -1,0 +1,8 @@
+-Ddefault_library=both
+-Dsystem-lua=true
+-Ddoc=disabled
+-Dsystemd=enabled
+-Dsystemd-user-service=true
+-Dintrospection=enabled
+-Delogind=disabled
+-Dtests=true
