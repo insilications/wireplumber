@@ -106,6 +106,7 @@ perl(XML::Parser)
 perl-XML-Parser
 pipewire
 pipewire-dev
+pipewire-tests
 pkg-config
 pkg-config-dev
 pulseaudio
