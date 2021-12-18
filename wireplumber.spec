@@ -71,6 +71,12 @@ BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(libusb-1.0)
 BuildRequires : pkgconfig(lua)
+BuildRequires : pkgconfig(lua-5.3)
+BuildRequires : pkgconfig(lua-5.4)
+BuildRequires : pkgconfig(lua5.3)
+BuildRequires : pkgconfig(lua5.4)
+BuildRequires : pkgconfig(lua53)
+BuildRequires : pkgconfig(lua54)
 BuildRequires : pkgconfig(ncurses)
 BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(readline)
@@ -114,7 +120,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639559813
+export SOURCE_DATE_EPOCH=1639559838
 export GCC_IGNORE_WERROR=1
 ## altflags_pgof content
 ## pgo generate
