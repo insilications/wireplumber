@@ -26,6 +26,7 @@ libwireplumber-0.4.so.0:wp_core_is_connected
 libwireplumber-0.4.so.0:wp_core_load_component
 libwireplumber-0.4.so.0:wp_core_new
 libwireplumber-0.4.so.0:wp_core_sync
+libwireplumber-0.4.so.0:wp_core_sync_closure
 libwireplumber-0.4.so.0:wp_core_sync_finish
 libwireplumber-0.4.so.0:wp_core_timeout_add
 libwireplumber-0.4.so.0:wp_core_timeout_add_closure
