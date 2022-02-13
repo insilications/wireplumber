@@ -1,8 +1,5 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-SDL2
-SDL2-dev
-Sphinx
 alsa-lib
 alsa-lib-dev
 alsa-plugins
@@ -94,6 +91,7 @@ perl
 perl(XML::Parser)
 perl-XML-Parser
 pipewire
+pipewire-data
 pipewire-dev
 pipewire-tests
 pkg-config
@@ -115,6 +113,8 @@ rtkit-bin
 rtkit-data
 rtkit-libexec
 rtkit-services
+SDL2
+SDL2-dev
 sed
 serd
 serd-dev
@@ -122,10 +122,11 @@ serd-staticdev
 sord
 sord-dev
 sord-staticdev
+speex-dev
 speexdsp-dev
 speexdsp-staticdev
-speex-dev
 speex-staticdev
+Sphinx
 sqlite-autoconf-dev
 sratom
 sratom-dev
