@@ -1,9 +1,3 @@
-libwireplumber-0.4.so.0:__gcov_average_profiler_atomic
-libwireplumber-0.4.so.0:__gcov_indirect_call_profiler_v4
-libwireplumber-0.4.so.0:__gcov_indirect_call_profiler_v4_atomic
-libwireplumber-0.4.so.0:__gcov_ior_profiler_atomic
-libwireplumber-0.4.so.0:__gcov_topn_values_profiler_atomic
-libwireplumber-0.4.so.0:mangle_path
 libwireplumber-0.4.so.0:wp_client_get_type
 libwireplumber-0.4.so.0:wp_client_send_error
 libwireplumber-0.4.so.0:wp_client_update_permissions
