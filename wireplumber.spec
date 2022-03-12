@@ -5,12 +5,16 @@
 %define keepstatic 1
 Name     : wireplumber
 Version  : 0.4.8
-Release  : 436
+Release  : 437
 URL      : file:///aot/build/clearlinux/packages/wireplumber/wireplumber-v0.4.8.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/wireplumber/wireplumber-v0.4.8.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: wireplumber-bin = %{version}-%{release}
+Requires: wireplumber-data = %{version}-%{release}
+Requires: wireplumber-lib = %{version}-%{release}
+Requires: wireplumber-services = %{version}-%{release}
 BuildRequires : SDL2
 BuildRequires : SDL2-dev
 BuildRequires : Sphinx
@@ -126,12 +130,6 @@ BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(libusb-1.0)
 BuildRequires : pkgconfig(lua)
-BuildRequires : pkgconfig(lua-5.3)
-BuildRequires : pkgconfig(lua-5.4)
-BuildRequires : pkgconfig(lua5.3)
-BuildRequires : pkgconfig(lua5.4)
-BuildRequires : pkgconfig(lua53)
-BuildRequires : pkgconfig(lua54)
 BuildRequires : pkgconfig(ncurses)
 BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(readline)
@@ -189,6 +187,63 @@ BuildRequires : zstd-staticdev
 %description
 No detailed description available
 
+%package bin
+Summary: bin components for the wireplumber package.
+Group: Binaries
+Requires: wireplumber-data = %{version}-%{release}
+Requires: wireplumber-services = %{version}-%{release}
+
+%description bin
+bin components for the wireplumber package.
+
+
+%package data
+Summary: data components for the wireplumber package.
+Group: Data
+
+%description data
+data components for the wireplumber package.
+
+
+%package dev
+Summary: dev components for the wireplumber package.
+Group: Development
+Requires: wireplumber-lib = %{version}-%{release}
+Requires: wireplumber-bin = %{version}-%{release}
+Requires: wireplumber-data = %{version}-%{release}
+Provides: wireplumber-devel = %{version}-%{release}
+Requires: wireplumber = %{version}-%{release}
+
+%description dev
+dev components for the wireplumber package.
+
+
+%package lib
+Summary: lib components for the wireplumber package.
+Group: Libraries
+Requires: wireplumber-data = %{version}-%{release}
+
+%description lib
+lib components for the wireplumber package.
+
+
+%package services
+Summary: services components for the wireplumber package.
+Group: Systemd services
+
+%description services
+services components for the wireplumber package.
+
+
+%package staticdev
+Summary: staticdev components for the wireplumber package.
+Group: Default
+Requires: wireplumber-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the wireplumber package.
+
+
 %prep
 %setup -q -n wireplumber
 cd %{_builddir}/wireplumber
@@ -199,7 +254,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1647085436
+export SOURCE_DATE_EPOCH=1647085766
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -331,6 +386,11 @@ export DESKTOP_SESSION=plasma
 export LD_LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/local/nvidia/lib64/vdpau:/usr/local/nvidia/lib64/xorg/modules/drivers:/usr/local/nvidia/lib64/xorg/modules/extensions:/usr/local/cuda/lib64:/usr/lib64/haswell:/usr/lib64/dri:/usr/lib64:/usr/lib:/aot/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/aot/intel/oneapi/compiler/latest/linux/lib:/aot/intel/oneapi/mkl/latest/lib/intel64:/aot/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/usr/share:/usr/lib64/wine:/usr/local/nvidia/lib32:/usr/local/nvidia/lib32/vdpau:/usr/lib32:/usr/lib32/wine"
 export LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/local/nvidia/lib64/vdpau:/usr/local/nvidia/lib64/xorg/modules/drivers:/usr/local/nvidia/lib64/xorg/modules/extensions:/usr/local/cuda/lib64:/usr/lib64/haswell:/usr/lib64/dri:/usr/lib64:/usr/lib:/aot/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/aot/intel/oneapi/compiler/latest/linux/lib:/aot/intel/oneapi/mkl/latest/lib/intel64:/aot/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/usr/share:/usr/lib64/wine:/usr/local/nvidia/lib32:/usr/local/nvidia/lib32/vdpau:/usr/lib32:/usr/lib32/wine"
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+export WIREPLUMBER_MODULE_DIR="/builddir/build/BUILD/wireplumber/builddir/modules"
+export WIREPLUMBER_CONFIG_DIR="/builddir/build/BUILD/wireplumber/src/config"
+export WIREPLUMBER_DATA_DIR="/builddir/build/BUILD/wireplumber/src"
+export PATH="/builddir/build/BUILD/wireplumber/builddir/src:/builddir/build/BUILD/wireplumber/builddir/src/tools:$PATH"
+export LD_LIBRARY_PATH="/builddir/build/BUILD/wireplumber/builddir/lib/wp:$LD_LIBRARY_PATH"
 meson test --verbose --num-processes 1 -C builddir || :
 export LD_LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/local/nvidia/lib64/vdpau:/usr/local/nvidia/lib64/xorg/modules/drivers:/usr/local/nvidia/lib64/xorg/modules/extensions:/usr/local/cuda/lib64:/usr/lib64/haswell:/usr/lib64/dri:/usr/lib64:/usr/lib:/aot/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/aot/intel/oneapi/compiler/latest/linux/lib:/aot/intel/oneapi/mkl/latest/lib/intel64:/aot/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/usr/share:/usr/lib64/wine:/usr/local/nvidia/lib32:/usr/local/nvidia/lib32/vdpau:/usr/lib32:/usr/lib32/wine"
 export LIBRARY_PATH="/usr/local/nvidia/lib64:/usr/local/nvidia/lib64/gbm:/usr/local/nvidia/lib64/vdpau:/usr/local/nvidia/lib64/xorg/modules/drivers:/usr/local/nvidia/lib64/xorg/modules/extensions:/usr/local/cuda/lib64:/usr/lib64/haswell:/usr/lib64/dri:/usr/lib64:/usr/lib:/aot/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/aot/intel/oneapi/compiler/latest/linux/lib:/aot/intel/oneapi/mkl/latest/lib/intel64:/aot/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/usr/share:/usr/lib64/wine:/usr/local/nvidia/lib32:/usr/local/nvidia/lib32/vdpau:/usr/lib32:/usr/lib32/wine"
@@ -343,3 +403,125 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/wireplumber
+/usr/bin/wpctl
+/usr/bin/wpexec
+
+%files data
+%defattr(-,root,root,-)
+/usr/lib64/girepository-1.0/Wp-0.4.typelib
+/usr/share/gir-1.0/*.gir
+/usr/share/wireplumber/bluetooth.conf
+/usr/share/wireplumber/bluetooth.lua.d/00-functions.lua
+/usr/share/wireplumber/bluetooth.lua.d/30-bluez-monitor.lua
+/usr/share/wireplumber/bluetooth.lua.d/50-bluez-config.lua
+/usr/share/wireplumber/bluetooth.lua.d/90-enable-all.lua
+/usr/share/wireplumber/common/00-functions.lua
+/usr/share/wireplumber/main.conf
+/usr/share/wireplumber/main.lua.d/00-functions.lua
+/usr/share/wireplumber/main.lua.d/20-default-access.lua
+/usr/share/wireplumber/main.lua.d/30-alsa-monitor.lua
+/usr/share/wireplumber/main.lua.d/30-libcamera-monitor.lua
+/usr/share/wireplumber/main.lua.d/30-v4l2-monitor.lua
+/usr/share/wireplumber/main.lua.d/40-device-defaults.lua
+/usr/share/wireplumber/main.lua.d/40-stream-defaults.lua
+/usr/share/wireplumber/main.lua.d/50-alsa-config.lua
+/usr/share/wireplumber/main.lua.d/50-default-access-config.lua
+/usr/share/wireplumber/main.lua.d/50-libcamera-config.lua
+/usr/share/wireplumber/main.lua.d/50-v4l2-config.lua
+/usr/share/wireplumber/main.lua.d/90-enable-all.lua
+/usr/share/wireplumber/policy.conf
+/usr/share/wireplumber/policy.lua.d/00-functions.lua
+/usr/share/wireplumber/policy.lua.d/10-default-policy.lua
+/usr/share/wireplumber/policy.lua.d/50-endpoints-config.lua
+/usr/share/wireplumber/policy.lua.d/90-enable-all.lua
+/usr/share/wireplumber/scripts/access/access-default.lua
+/usr/share/wireplumber/scripts/access/access-portal.lua
+/usr/share/wireplumber/scripts/create-item.lua
+/usr/share/wireplumber/scripts/intended-roles.lua
+/usr/share/wireplumber/scripts/monitors/alsa-midi.lua
+/usr/share/wireplumber/scripts/monitors/alsa.lua
+/usr/share/wireplumber/scripts/monitors/bluez.lua
+/usr/share/wireplumber/scripts/monitors/libcamera.lua
+/usr/share/wireplumber/scripts/monitors/v4l2.lua
+/usr/share/wireplumber/scripts/policy-bluetooth.lua
+/usr/share/wireplumber/scripts/policy-device-profile.lua
+/usr/share/wireplumber/scripts/policy-device-routes.lua
+/usr/share/wireplumber/scripts/policy-endpoint-client-links.lua
+/usr/share/wireplumber/scripts/policy-endpoint-client.lua
+/usr/share/wireplumber/scripts/policy-endpoint-device.lua
+/usr/share/wireplumber/scripts/policy-node.lua
+/usr/share/wireplumber/scripts/restore-stream.lua
+/usr/share/wireplumber/scripts/static-endpoints.lua
+/usr/share/wireplumber/scripts/suspend-node.lua
+/usr/share/wireplumber/wireplumber.conf
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/wireplumber-0.4/wp/client.h
+/usr/include/wireplumber-0.4/wp/component-loader.h
+/usr/include/wireplumber-0.4/wp/core.h
+/usr/include/wireplumber-0.4/wp/defs.h
+/usr/include/wireplumber-0.4/wp/device.h
+/usr/include/wireplumber-0.4/wp/endpoint.h
+/usr/include/wireplumber-0.4/wp/error.h
+/usr/include/wireplumber-0.4/wp/factory.h
+/usr/include/wireplumber-0.4/wp/global-proxy.h
+/usr/include/wireplumber-0.4/wp/iterator.h
+/usr/include/wireplumber-0.4/wp/link.h
+/usr/include/wireplumber-0.4/wp/log.h
+/usr/include/wireplumber-0.4/wp/metadata.h
+/usr/include/wireplumber-0.4/wp/module.h
+/usr/include/wireplumber-0.4/wp/node.h
+/usr/include/wireplumber-0.4/wp/object-interest.h
+/usr/include/wireplumber-0.4/wp/object-manager.h
+/usr/include/wireplumber-0.4/wp/object.h
+/usr/include/wireplumber-0.4/wp/plugin.h
+/usr/include/wireplumber-0.4/wp/port.h
+/usr/include/wireplumber-0.4/wp/properties.h
+/usr/include/wireplumber-0.4/wp/proxy-interfaces.h
+/usr/include/wireplumber-0.4/wp/proxy.h
+/usr/include/wireplumber-0.4/wp/session-item.h
+/usr/include/wireplumber-0.4/wp/si-factory.h
+/usr/include/wireplumber-0.4/wp/si-interfaces.h
+/usr/include/wireplumber-0.4/wp/spa-json.h
+/usr/include/wireplumber-0.4/wp/spa-pod.h
+/usr/include/wireplumber-0.4/wp/spa-type.h
+/usr/include/wireplumber-0.4/wp/state.h
+/usr/include/wireplumber-0.4/wp/transition.h
+/usr/include/wireplumber-0.4/wp/wp.h
+/usr/include/wireplumber-0.4/wp/wpenums.h
+/usr/include/wireplumber-0.4/wp/wpversion.h
+/usr/lib64/pkgconfig/wireplumber-0.4.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libwireplumber-0.4.so
+/usr/lib64/libwireplumber-0.4.so.0
+/usr/lib64/libwireplumber-0.4.so.0.4.8
+/usr/lib64/wireplumber-0.4/libwireplumber-module-default-nodes-api.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-default-nodes.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-default-profile.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-file-monitor-api.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-logind.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-lua-scripting.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-metadata.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-mixer-api.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-portal-permissionstore.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-reserve-device.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-si-audio-adapter.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-si-audio-endpoint.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-si-node.so
+/usr/lib64/wireplumber-0.4/libwireplumber-module-si-standard-link.so
+
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/user/wireplumber.service
+/usr/lib/systemd/user/wireplumber@.service
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libwireplumber-0.4.a
